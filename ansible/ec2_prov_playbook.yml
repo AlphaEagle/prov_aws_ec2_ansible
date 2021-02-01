@@ -16,7 +16,7 @@
         image: "{{ ec2_image }}"
         vpc_subnet_id: "{{ ec2_subnet_id }}"
         region: "{{ ec2_region }}"
-        instance_tags: '{"Type":"{{ec2_instance_type}}", "Role":"{{ec2_tag_Role}}"}'
+        instance_tags: '{"Type":"{{ec2_instance_type}}", "Role":"{{ec2_tag_Role}}", "Name":"{{ec2_instance_name}}"'
         assign_public_ip: yes
         wait: true
         exact_count: "{{ ec2_count }}"
