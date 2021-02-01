@@ -1,4 +1,5 @@
 STATE_RES_NAME: "${STATE_RES_NAME}"
+ec2_name: "${ec2_name}"
 ec2_region: "${ec2_region}"
 ec2_instance_type: "${ec2_tag_Type}"
 ec2_image: "${ec2_image}"
