@@ -10,6 +10,7 @@
     - name: Provision {{ ec2_count }} instances with tag {{ ec2_tag_Role }}
       local_action:
         module: ec2
+        name: "{{ ec2_name }}"
         key_name: "{{ ec2_keypair }}"
         group_id: "{{ ec2_security_group_id }}"
         instance_type: "{{ ec2_instance_type }}"
@@ -30,16 +31,16 @@
       register: ec2
 
     - add_host:
-        name: "{{ item.public_ip }}"
+        name: "{{ item.id }}"
         groups: tag_Type_{{ec2_tag_Type}}
         ec2_region: "{{ ec2_region }}"
         ec2_tag_Type: "{{ ec2_tag_Type}}"
         ec2_tag_Role: "{{ ec2_tag_Role }}"
-        ec2_ip_address: "{{ item.public_ip }}"
+        ec2_ip_address: "{{ item.private_ip }}"
       with_items: "{{ ec2.instances }}"
 
     - name: Wait for the instances to boot by checking the ssh port
-      wait_for: host={{item.public_ip}} port=22 delay=15 timeout=300 state=started
+      wait_for: host={{item.private_ip}} port=22 delay=15 timeout=300 state=started
       with_items: "{{ ec2.instances }}"
 
   post_tasks:
