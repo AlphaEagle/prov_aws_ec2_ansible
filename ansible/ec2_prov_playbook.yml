@@ -17,6 +17,7 @@
         vpc_subnet_id: "{{ ec2_subnet_id }}"
         region: "{{ ec2_region }}"
         instance_tags: '{"Type":"{{ec2_instance_type}}", "Role":"{{ec2_tag_Role}}", "Name":"{{ec2_instance_name}}"}'
+        group: "{{ group }}"
         assign_public_ip: yes
         wait: true
         exact_count: "{{ ec2_count }}"
@@ -30,7 +31,7 @@
       register: ec2
 
     - add_host:
-        name: "{{ item.id }}"
+        name: "{{ item.private_ip }}"
         groups: tag_Type_{{ec2_tag_Type}}
         ec2_region: "{{ ec2_region }}"
         ec2_tag_Type: "{{ ec2_tag_Type}}"
